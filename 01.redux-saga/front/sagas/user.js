@@ -1,5 +1,5 @@
 import { all, delay, fork, put, takeLatest } from 'redux-saga/effects';
-import axios from 'axios';
+// import axios from 'axios';
 
 import {
   FOLLOW_FAILURE,
@@ -19,15 +19,15 @@ import {
   UNFOLLOW_SUCCESS,
 } from '../reducers/user';
 
-function logInAPI(data) {
-  return axios.post('/api/login', data);
-}
+// function logInAPI(data) {
+//   return axios.post('/api/login', data);
+// }
 
 function* logIn(action) {
   // action.type : login_request , action.data:login_data
   try {
     console.log('saga logIn');
-    const result = yield call(logInAPI,action.data);
+    // yield call(logInAPI, action.data);
     yield delay(1000);
     yield put({
       type: LOG_IN_SUCCESS,
@@ -42,13 +42,13 @@ function* logIn(action) {
   }
 }
 
-function logOutAPI() {
-  return axios.post('/api/logout');
-}
+// function logOutAPI() {
+//   return axios.post('/api/logout');
+// }
 
 function* logOut() {
   try {
-    const result = yield call(logOutAPI);
+    // yield call(logOutAPI);
     yield delay(1000);
     yield put({
       type: LOG_OUT_SUCCESS,
@@ -62,13 +62,13 @@ function* logOut() {
   }
 }
 
-function signUpAPI() {
-  return axios.post('/api/signUp');
-}
+// function signUpAPI() {
+//   return axios.post('/api/signUp');
+// }
 
 function* signUp() {
   try {
-    const result = yield call(signUpAPI);
+    // yield call(signUpAPI);
     yield delay(1000);
     yield put({
       type: SIGN_UP_SUCCESS,
@@ -82,13 +82,13 @@ function* signUp() {
   }
 }
 
-function followAPI() {
-  return axios.post('/api/follow');
-}
+// function followAPI() {
+//   return axios.post('/api/follow');
+// }
 
 function* follow(action) {
   try {
-    const result = yield call(followAPI);
+    // yield call(followAPI);
     yield delay(1000);
     yield put({
       type: FOLLOW_SUCCESS,
@@ -103,13 +103,13 @@ function* follow(action) {
   }
 }
 
-function unfollowAPI() {
-  return axios.post('/api/unfollow');
-}
+// function unfollowAPI() {
+//   return axios.post('/api/unfollow');
+// }
 
 function* unfollow(action) {
   try {
-    const result = yield call(unfollowAPI);
+    // yield call(unfollowAPI);
     yield delay(1000);
     yield put({
       type: UNFOLLOW_SUCCESS,
@@ -153,3 +153,5 @@ export default function* userSaga() {
     fork(watchSignUp),
   ]);
 }
+
+// 서버가 아직 구축안됬으므로 네트워크요청을 delay로 대신함

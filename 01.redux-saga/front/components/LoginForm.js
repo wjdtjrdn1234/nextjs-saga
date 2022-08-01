@@ -21,6 +21,8 @@ const LoginForm = () => {
   const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
 
+  // 로그인시도시 saga logIn과 reducer loginRequestActiond이 동시에 실행됨
+
   const onSubmitForm = useCallback(() => {
     console.log(email, password);
     dispatch({
