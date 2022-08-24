@@ -86,6 +86,8 @@ const dummyComment = (data) => ({
   },
 });
 // 이전 상태를 액션을 통해 다음 상태로 만들어내는 함수(불변성은 지키면서)
+// immer : 불변성을 편하게 지켜주는 라이브러리
+// drft === state
 const reducer = (state = initialState, action) => produce(state, (draft) => {
   switch (action.type) {
     case LOAD_POSTS_REQUEST:
@@ -111,7 +113,7 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
     case ADD_POST_SUCCESS:
       draft.addPostLoading = false;
       draft.addPostDone = true;
-      draft.mainPosts.unshift(dummyPost(action.data));
+      draft.mainPosts.unshift(dummyPost(action.data)); // 배열 변환
       break;
     case ADD_POST_FAILURE:
       draft.addPostLoading = false;
@@ -138,7 +140,7 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       break;
     case ADD_COMMENT_SUCCESS: {
       const post = draft.mainPosts.find((v) => v.id === action.data.postId);
-      post.Comments.unshift(dummyComment(action.data.content));
+      post.Comments.unshift(dummyComment(action.data.content)); // 배열변환
       draft.addCommentLoading = false;
       draft.addCommentDone = true;
       break;
