@@ -21,6 +21,7 @@ export const initialState = {
   addCommentError: null,
 };
 
+// faker: dummy data 만들어주는 라이브러리
 export const generateDummyPost = (number) => Array(number).fill().map(() => ({
   id: shortId.generate(),
   User: {
