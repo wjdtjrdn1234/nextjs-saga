@@ -54,8 +54,6 @@ const Home = () => {
 // 화면에 랜더링되기전에  getServerSideProps이 실행됨(프론트서버에서)(컴포넌트는 브라우저+프론트서버에서 실행)
 export const getServerSideProps = wrapper.getServerSideProps(
   async (context) => {
-    console.log("getServerSideProps start");
-    console.log(context.req.headers);
 
     //프론트서버에서 백엔드서버로 요청보내므로 브라우저처럼 쿠키를 자동으로 넣어주지않음 -> 따라서 수동으로 넣어줘야됨
     const cookie = context.req ? context.req.headers.cookie : "";
@@ -72,7 +70,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
     context.store.dispatch({
       type: LOAD_POSTS_REQUEST,
     });
-    console.log("getServerSideProps end");
     context.store.dispatch(END);
     await context.store.sagaTask.toPromise();
   }

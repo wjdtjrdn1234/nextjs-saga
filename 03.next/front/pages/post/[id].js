@@ -11,6 +11,7 @@ import PostCard from '../../components/PostCard';
 import AppLayout from '../../components/AppLayout';
 import { LOAD_MY_INFO_REQUEST } from '../../reducers/user';
 
+// 다이나믹 라우팅
 const Post = () => {
   const { singlePost } = useSelector((state) => state.post);
   const router = useRouter();

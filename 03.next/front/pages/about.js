@@ -14,7 +14,7 @@ const Profile = () => {
   return (
     <AppLayout>
       <Head>
-        <title>ZeroCho | NodeBird</title>
+        <title>seokwoo</title>
       </Head>
       {userInfo
         ? (
@@ -40,7 +40,7 @@ const Profile = () => {
             <Card.Meta
               avatar={<Avatar>{userInfo.nickname[0]}</Avatar>}
               title={userInfo.nickname}
-              description="노드버드 매니아"
+              description="seokwoo"
             />
           </Card>
         )
@@ -49,8 +49,9 @@ const Profile = () => {
   );
 };
 
+//getServerSideProps : 접속할때마다 백엔드서버에서 데이터가져옴
+//getStaticProps: build시점에 백엔드서버에서 데이터가져옴 (데이터 잘 바뀌지않는경우 사용) -> static page 만들때
 export const getStaticProps = wrapper.getStaticProps(async (context) => {
-  console.log('getStaticProps');
   context.store.dispatch({
     type: LOAD_USER_REQUEST,
     data: 1,
