@@ -7,7 +7,7 @@ import post from './post';
 // (이전상태, 액션) => 다음상태
 const rootReducer = (state, action) => {
   switch (action.type) {
-    case HYDRATE:
+    case HYDRATE: //getServerSideProps에서 dispatch할경우 HYDRATE가 받음
       console.log('HYDRATE', action);
       return action.payload;
     default: {
