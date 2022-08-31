@@ -1,9 +1,10 @@
 import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
-import { ServerStyleSheet } from 'styled-components';
+import { ServerStyleSheet } from 'styled-components'; 
 
 export default class MyDocument extends Document {
-  static async getInitialProps(ctx) {
+
+  static async getInitialProps(ctx) { //ssr styled-components 적용
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
 
@@ -26,13 +27,15 @@ export default class MyDocument extends Document {
       sheet.seal();
     }
   }
-
+  
+  // 폴리필적용(babel-poyfill 은 무거워서 이렇게 대체)
   render() {
     return (
       <Html>
         <Head />
         <body>
           <Main />
+          <script src="https://polyfill.io/v3/polyfill.min.js?features=default%2Ces2022%2Ces2021%2Ces2020%2Ces2019%2Ces2017%2Ces2018%2Ces2016%2Ces2015%2Cdom4"/> 
           <NextScript />
         </body>
       </Html>

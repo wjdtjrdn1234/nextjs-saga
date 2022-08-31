@@ -4,10 +4,10 @@
   ],
   "plugins": [
     [
-      "babel-plugin-styled-components",
+      "babel-plugin-styled-components", //styled-components ssr적용
       {
         "ssr": true,
-        "displayName": true
+        "displayName": true //
       }
     ]
   ]
