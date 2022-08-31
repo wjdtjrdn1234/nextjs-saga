@@ -5,7 +5,6 @@ import Router from 'next/router';
 import { END } from 'redux-saga';
 import axios from 'axios';
 import useSWR from 'swr';
-
 import AppLayout from '../components/AppLayout';
 import NicknameEditForm from '../components/NicknameEditForm';
 import FollowList from '../components/FollowList';
@@ -17,13 +16,19 @@ const fetcher = (url) => axios.get(url, { withCredentials: true }).then((result)
 const Profile = () => {
   const [followingsLimit, setFollowingsLimit] = useState(3);
   const [followersLimit, setFollowersLimit] = useState(3);
-  const { data: followingsData, error: followingError } = useSWR(`http://localhost:3065/user/followings?limit=${followingsLimit}`, fetcher);
-  const { data: followersData, error: followerError } = useSWR(`http://localhost:3065/user/followers?limit=${followersLimit}`, fetcher);
+  const { data: followingsData, error: followingError } = useSWR(
+    `http://localhost:3065/user/followings?limit=${followingsLimit}`,
+    fetcher
+  ); //url,fetcher(어떤식으로 가져올지)
+  const { data: followersData, error: followerError } = useSWR(
+    `http://localhost:3065/user/followers?limit=${followersLimit}`,
+    fetcher
+  );
   const { me } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (!(me && me.id)) {
-      Router.push('/');
+      Router.push("/");
     }
   }, [me && me.id]);
 
@@ -37,11 +42,11 @@ const Profile = () => {
 
   if (followerError || followingError) {
     console.error(followerError || followingError);
-    return '팔로잉/팔로워 로딩 중 에러가 발생했습니다.';
+    return "팔로잉/팔로워 로딩 중 에러가 발생했습니다.";
   }
 
   if (!me) {
-    return '내 정보 로딩중...';
+    return "내 정보 로딩중...";
   }
   return (
     <>
@@ -50,8 +55,18 @@ const Profile = () => {
       </Head>
       <AppLayout>
         <NicknameEditForm />
-        <FollowList header="팔로잉" data={followingsData} onClickMore={loadMoreFollowings} loading={!followingError && !followingsData} />
-        <FollowList header="팔로워" data={followersData} onClickMore={loadMoreFollowers} loading={!followerError && !followersData} />
+        <FollowList
+          header="팔로잉"
+          data={followingsData}
+          onClickMore={loadMoreFollowings}
+          loading={!followingError && !followingsData}
+        />
+        <FollowList
+          header="팔로워"
+          data={followersData}
+          onClickMore={loadMoreFollowers}
+          loading={!followerError && !followersData}
+        />
       </AppLayout>
     </>
   );

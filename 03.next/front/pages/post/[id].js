@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { END } from 'redux-saga';
-
 import axios from 'axios';
 import { LOAD_POST_REQUEST } from '../../reducers/post';
 import wrapper from '../../store/configureStore';
@@ -17,9 +16,9 @@ const Post = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  // if (router.isFallback) {
-  //   return <div>Loading...</div>
-  // }
+  if (router.isFallback) {
+    return <div>Loading...</div>
+  }
 
   return (
     <AppLayout>
@@ -39,19 +38,21 @@ const Post = () => {
   );
 };
 
-// export async function getStaticPaths() {
-//   return {
-//     paths: [
-//       { params: { id: '1' } },
-//       { params: { id: '2' } },
-//       { params: { id: '3' } },
-//       { params: { id: '4' } },
-//     ],
-//     fallback: true,
-//   };
-// }
+//dynamic routing+getStaticProps를 쓰는경우 getStaticPaths를 필수로 사용해야됨
 
-export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+export async function getStaticPaths() {
+  return {
+    paths: [ // 1~4번 게시글이 미리 build됨
+      { params: { id: '1' } },
+      { params: { id: '2' } },
+      { params: { id: '3' } },
+      { params: { id: '4' } },
+    ],
+    fallback: true, // false면 params에 적혀있지않은 id routing은 404 error , true면 해당경로를 백엔드서버로부터 불러옴
+  };
+}
+
+export const getStaticProps = wrapper.getStaticProps(async (context) => {
   const cookie = context.req ? context.req.headers.cookie : '';
   console.log(context);
   axios.defaults.headers.Cookie = '';
